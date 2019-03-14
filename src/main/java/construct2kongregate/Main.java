@@ -16,8 +16,16 @@ public class Main {
             return;
         }
 
-        final File sourceArchive = new File("Roof_Garbage.zip");
-        final File targetArchive = new File("kongregate-" + System.currentTimeMillis() + ".zip");
+        final File sourceArchive = new File(args[0]);
+        final File targetArchive = new File(args[1]);
+        if (!sourceArchive.exists() || !sourceArchive.isFile()) {
+            System.out.println(args[0] + " must be existing zip file");
+            return;
+        }
+        if (targetArchive.exists()) {
+            System.out.println(args[1] + " is already exists");
+            return;
+        }
 
         final File unpackedDir = ConstructService.unpack(sourceArchive);
         KongregateService.pack(unpackedDir, targetArchive);
